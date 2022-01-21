@@ -43,11 +43,10 @@ function init () {
     loader.load( model, function ( object ) {
 
         // uncomment to hide spinner when model loads
-        // document.getElementById('loader').remove()
+        document.getElementById('loader').remove()
         scene.add( object )
 
     } )
-
 }
 
 // function to continuously render the scene
