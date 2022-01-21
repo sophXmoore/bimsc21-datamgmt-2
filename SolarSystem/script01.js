@@ -54,10 +54,21 @@ function init () {
     light.position.set( 0, 0, 0 );
     scene.add( light )
 
+    //Add ambient light
+    const ambientLight = new THREE.AmbientLight( 0x404040, 4 ); // soft white light
+    scene.add( ambientLight ); 
+
     let cubeMap, material
+    
+    //create a material
+    material = new THREE.MeshStandardMaterial( {
+         color: 0xFF0000,
+         metalness: 1.0,
+         roughness: 1.0
+    } )
 
     cubeMap = new THREE.CubeTextureLoader()
-    .setPath('textures/cubeMap/')
+    .setPath('')
     .load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] )
 
     scene.background = cubeMap
@@ -68,6 +79,12 @@ function init () {
 function load ( model ) {
 
     loader.load( model, function ( object ) {
+
+        object.traverse( function (child) { 
+            if (child.isMesh) {
+                child.material = material
+            }
+        }, false)
 
         scene.add( object )
 
