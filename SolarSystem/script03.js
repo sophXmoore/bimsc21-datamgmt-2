@@ -8,17 +8,6 @@ const mouse = new THREE.Vector2()
 window.addEventListener( 'click', onClick, false);
 raycaster = new THREE.Raycaster()
 
-/*
-// create a scene and a camera
-const scene = new THREE.Scene()
-//scene.background = new THREE.Color(1,1,1)
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 8000 )
-//const camera = new THREE.OrthographicCamera(-5000, 5000, 5000, 5000, 100, 5000 )
-camera.position.z = 1000
-camera.position.x = 3000
-camera.position.y = 1500
-*/
-
 const model = ["Sun.3dm", "P1.3dm", "P2.3dm", "P3.3dm", "P4.3dm", "P5.3dm"];
 
 var material = new THREE.MeshLambertMaterial({
@@ -34,7 +23,6 @@ var P4 = new THREE.Object3D()
 var P5 = new THREE.Object3D()
 
 init();
-animate();
 
 function init() {
   THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
@@ -138,7 +126,7 @@ function onClick( event ) {
     // reset object colours after clicking
     scene.traverse((child, i) => {
         if (child.isMesh) {
-            child.material.color.set( 'white' )
+            child.material.color.set('white')
         }
     });
 
@@ -183,13 +171,38 @@ function onClick( event ) {
 
 }
 
+let speed = 0;
+let counter = 1;
+console.log("first speed:", speed)
+
+document.getElementById("play").addEventListener("click", function() {
+    if (speed == 1){
+        return
+    }
+    else{
+        speed = 1/(counter);
+        animate();
+        console.log("animate speed:", speed, counter)
+        counter += 1;
+    }
+});
+
+document.getElementById("pause").addEventListener("click", function() {
+    speed = 0;
+    animate();
+    console.log("pause speed:", speed)
+
+});
+
 function animate() {
-  requestAnimationFrame(animate);
-  P1.rotation.z += 0.015
-  P2.rotation.z += 0.02
-  P3.rotation.z += 0.01
-  P4.rotation.z += 0.03
-  P5.rotation.z += 0.035
-  renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        P1.rotation.z += 0.015/2*speed
+        P2.rotation.z += 0.02/2*speed
+        P3.rotation.z += 0.01/2*speed
+        P4.rotation.z += 0.03/2*speed
+        P5.rotation.z += 0.035/2*speed
+        renderer.render(scene, camera);
 }
+
+animate();
 

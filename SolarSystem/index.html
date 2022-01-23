@@ -4,7 +4,9 @@
 		<meta charset="utf-8">
 		<title>S1 - Lecture 2 - Example 3</title>
 		<style>
-			body { margin: 0; }
+			body { margin: 0; 
+                    width: auto;
+                }
 
             /* CSS for a spinning animation */ 
             
@@ -40,6 +42,32 @@
                 font-family: monospace;
             }
 
+            #play{
+                border: none;
+                color: white;
+                background-color: red;
+                position: absolute;
+                font-size: 16px;
+                top: 10px;
+                left: 400px;
+                padding : 5px;
+                margin-right: 0px;
+                font-family: monospace;
+            }
+
+            #pause{
+                border: none;
+                color: white;
+                background-color: red;
+                position: absolute;
+                font-size: 16px;
+                top: 10px;
+                left: 450px;
+                padding : 5px;
+                margin-right: 0px;
+                font-family: monospace;
+            }
+
             table { border: none; border-collapse: collapse; }
             table td {
                 border-left: 1px solid white;
@@ -53,6 +81,8 @@
 		<!--div id="loader"></div-->
         
         <script type="module" src="./script03.js"></script>
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
 
 	</body>
 </html>
