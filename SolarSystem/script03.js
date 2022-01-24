@@ -8,7 +8,7 @@ const mouse = new THREE.Vector2()
 window.addEventListener( 'click', onClick, false);
 raycaster = new THREE.Raycaster()
 
-const model = ["Sun.3dm", "P1.3dm", "P2.3dm", "P3.3dm", "P4.3dm", "P5.3dm"];
+const model = ["Sun.3dm", "P1.3dm", "P2.3dm", "P3.3dm", "P4.3dm", "P5.3dm", "Ring.3dm", "Moon.3dm"];
 
 var material = new THREE.MeshLambertMaterial({
   color: "#ffc700",
@@ -16,11 +16,19 @@ var material = new THREE.MeshLambertMaterial({
   emissiveIntensity: 0.7,
 });
 
+var ringMat = new THREE.MeshLambertMaterial({
+    color: "#66ffcc",
+    emissive: "#66ffcc",
+    emissiveIntensity: 0.2,
+});
+
 var P1 = new THREE.Object3D()
 var P2 = new THREE.Object3D()
 var P3 = new THREE.Object3D()
 var P4 = new THREE.Object3D()
 var P5 = new THREE.Object3D()
+var Ring = new THREE.Object3D()
+var Moon = new THREE.Object3D()
 
 init();
 
@@ -94,16 +102,43 @@ function init() {
   });
 
   loader.load(model[4], function (object) {
-    scene.add(object);
     P4 = object
+    scene.add(P4);
   });
 
   loader.load(model[5], function (object) {
     scene.add(object);
     P5 = object
   });
+
+  loader.load(model[6], function (object) {
+    object.traverse(function (child) {
+        if (child.isMesh) {
+          child.material = ringMat;
+        }
+      }, false); 
+    Ring = object
+    P4.add(Ring);
+    
+  });
+
+  loader.load(model[7], function (object) {
+    object.traverse(function (child) {
+        if (child.isMesh) {
+          child.material = ringMat;
+        }
+      }, false); 
+    Moon = object
+    P3.add(Moon);
+    
+  });
+
+  scene.add(P4);
+  scene.add(P3);
 }
 
+
+console.log("log:",P4);
 
 function onClick( event ) {
     console.log( `click! (${event.clientX}, ${event.clientY})`)
@@ -173,7 +208,6 @@ function onClick( event ) {
 
 let speed = 0;
 let counter = 1;
-console.log("first speed:", speed)
 
 document.getElementById("play").addEventListener("click", function() {
     if (speed == 1){
@@ -182,7 +216,6 @@ document.getElementById("play").addEventListener("click", function() {
     else{
         speed = 1/(counter);
         animate();
-        console.log("animate speed:", speed, counter)
         counter += 1;
     }
 });
@@ -190,7 +223,6 @@ document.getElementById("play").addEventListener("click", function() {
 document.getElementById("pause").addEventListener("click", function() {
     speed = 0;
     animate();
-    console.log("pause speed:", speed)
 
 });
 
@@ -198,8 +230,10 @@ function animate() {
         requestAnimationFrame(animate);
         P1.rotation.z += 0.015/2*speed
         P2.rotation.z += 0.02/2*speed
-        P3.rotation.z += 0.01/2*speed
+        P3.rotation.z += 0.01*speed
+        Moon.rotation.x += 0.01*speed
         P4.rotation.z += 0.03/2*speed
+        Ring.rotation.z += 0.03/2*speed
         P5.rotation.z += 0.035/2*speed
         renderer.render(scene, camera);
 }
