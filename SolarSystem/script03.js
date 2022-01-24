@@ -56,19 +56,11 @@ function init() {
     75,
     window.innerWidth / window.innerHeight,
     0.1,
-    5500
+    8000
   );
     camera.position.x = 3000
     camera.position.y = 1500
     camera.position.z = 1000
-
-  // create the renderer and add it to the html
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  document.body.appendChild(renderer.domElement);
-
-  const controls = new OrbitControls(camera, renderer.domElement);
 
   //Add Point Light
   const light = new THREE.PointLight(0xffc700, 2, 0);
@@ -96,7 +88,6 @@ function init() {
         child.material = material;
       }
     }, false);
-
     scene.add(object);
   });
 
@@ -116,8 +107,8 @@ function init() {
   });
 
   loader.load(model[4], function (object) {
+    scene.add(object)
     P4 = object
-    scene.add(P4);
   });
 
   loader.load(model[5], function (object) {
@@ -131,8 +122,8 @@ function init() {
           child.material = ringMat;
         }
       }, false); 
+    scene.add(object);
     Ring = object
-    P4.add(Ring);
     
   });
 
@@ -146,13 +137,17 @@ function init() {
     P3.add(Moon);
     
   });
+  scene.updateMatrixWorld();
 
-  scene.add(P4);
-  scene.add(P3);
+  // create the renderer and add it to the html
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  document.body.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+
 }
-
-
-console.log("log:",P4);
 
 function onClick( event ) {
     console.log( `click! (${event.clientX}, ${event.clientY})`)
@@ -247,6 +242,7 @@ function animate() {
         P3.rotation.z += 0.01*speed
         Moon.rotation.x += 0.01*speed
         P4.rotation.z += 0.03/2*speed
+        Ring.rotation.z += 0.03/2*speed
         P5.rotation.z += 0.035/2*speed
         renderer.render(scene, camera);
 }

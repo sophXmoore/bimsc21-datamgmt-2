@@ -22,12 +22,12 @@
                 left: 50%;
             }
             
-/*
+
             @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
-            */
+            
 
             /* style user strings pop-up */
             #container {
@@ -41,15 +41,18 @@
                 width: 250px;
                 font-family: monospace;
             }
+            #buttons{
+                position: absolute;
+                top: 10px;
+                text-align: center;
+                width: 100vh;
+            }
 
             #play{
                 border: none;
                 color: white;
                 background-color: red;
-                position: absolute;
                 font-size: 16px;
-                top: 10px;
-                left: 400px;
                 padding : 5px;
                 margin-right: 0px;
                 font-family: monospace;
@@ -59,10 +62,7 @@
                 border: none;
                 color: white;
                 background-color: red;
-                position: absolute;
                 font-size: 16px;
-                top: 10px;
-                left: 450px;
                 padding : 5px;
                 margin-right: 0px;
                 font-family: monospace;
@@ -81,8 +81,12 @@
 		<!--div id="loader"></div-->
         
         <script type="module" src="./script03.js"></script>
-        <button id="play">Play</button>
-        <button id="pause">Pause</button>
+        <div id = "buttons">
+            <div id = "innerButtons">
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
+            </div>
+        </div>
 
 	</body>
 </html>

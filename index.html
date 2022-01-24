@@ -2,14 +2,48 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>S1 - Lecture 2</title>
+        <title>Welcome</title>
+
+        <style>
+            body{
+                background-color: rgb(65, 59, 59);
+            }
+            #fullBody{
+                height: 100vh;
+                line-height: 50%;
+                color: white;
+                text-align: center;
+                font-family: monospace; 
+            }
+            #inner{
+                position: relative;
+                top: 50%;
+            }
+            #welcome{
+                font-size: 25px;
+            }
+            #linkButton{
+                background-color:rgb(65, 59, 59) ;
+                border-style: solid;
+                border-color: white;
+            }
+            #link{
+                text-decoration: none;
+                color: white;
+                padding: 5px;
+                font-size: 20px;
+            }
+
+        </style>
+
     </head>
     <body>
-        <h1>S1 - Lecture 2</h1>
-        <ul>
-            <li><a href="./example1/">Example 1</a> – Introduction to three.js</li>
-            <li><a href="./example2/">Example 2</a> – Introduction to rhino3dm.js and 3DMLoader for three.js</li>
-            <li><a href="./example3/">Example 3</a> - Extends example 2 by adding a mouse click event.</li>
-        </ul>
+        <div id = "fullBody">
+            <div id = "inner">
+                <p id = "welcome">Welcome to the Sophie System</p>
+                <br>
+                <button id = "linkButton"><a id = "link" href="/SolarSystem/index.html">Enter</a></button>
+            </div>
+        </div>  
     </body>
 </html>
