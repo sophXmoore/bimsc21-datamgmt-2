@@ -10,16 +10,30 @@ raycaster = new THREE.Raycaster()
 
 const model = ["Sun.3dm", "P1.3dm", "P2.3dm", "P3.3dm", "P4.3dm", "P5.3dm", "Ring.3dm", "Moon.3dm"];
 
-var material = new THREE.MeshLambertMaterial({
-  color: "#ffc700",
-  emissive: "#ffc700",
-  emissiveIntensity: 0.7,
-});
+var sunTexture = new THREE.TextureLoader().load('SunTexture.jpg')
+const material = new THREE.MeshBasicMaterial({
+    map:sunTexture
+})
 
+var ringText = new THREE.TextureLoader().load('RingsTexture.jpg')
+const ringMat = new THREE.MeshBasicMaterial({
+    map:ringText
+})
+
+  //color: "#ffc700",
+  //emissive: "#ffc700",
+  //emissiveIntensity: 0.7,
+
+  /*
 var ringMat = new THREE.MeshLambertMaterial({
     color: "#66ffcc",
     emissive: "#66ffcc",
     emissiveIntensity: 0.2,
+});
+*/
+
+var moonMat = new THREE.MeshLambertMaterial({
+    color: "#c2c2d6",
 });
 
 var P1 = new THREE.Object3D()
@@ -125,7 +139,7 @@ function init() {
   loader.load(model[7], function (object) {
     object.traverse(function (child) {
         if (child.isMesh) {
-          child.material = ringMat;
+          child.material = moonMat;
         }
       }, false); 
     Moon = object
@@ -233,7 +247,6 @@ function animate() {
         P3.rotation.z += 0.01*speed
         Moon.rotation.x += 0.01*speed
         P4.rotation.z += 0.03/2*speed
-        Ring.rotation.z += 0.03/2*speed
         P5.rotation.z += 0.035/2*speed
         renderer.render(scene, camera);
 }
