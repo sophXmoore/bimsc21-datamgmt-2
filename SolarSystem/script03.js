@@ -243,6 +243,9 @@ document.getElementById("play").addEventListener("click", function() {
 });
 
 document.getElementById("pause").addEventListener("click", function() {
+    if (speed==0){
+      return
+    }
     speed = 0;
     animate();
 
