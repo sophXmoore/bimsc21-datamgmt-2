@@ -36,6 +36,7 @@ var moonMat = new THREE.MeshLambertMaterial({
     color: "#c2c2d6",
 });
 
+var Sun = new THREE.Object3D()
 var P1 = new THREE.Object3D()
 var P2 = new THREE.Object3D()
 var P3 = new THREE.Object3D()
@@ -81,37 +82,48 @@ function init() {
   const loader = new Rhino3dmLoader();
   loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@0.13.0/");
   
-  var Sun;
+
   loader.load(model[0], function (object) {
     object.traverse(function (child) {
       if (child.isMesh) {
         child.material = material;
       }
     }, false);
+    object.castShadow = false;
     scene.add(object);
+    Sun = object;
   });
 
   loader.load(model[1], function (object) {
+    object.castShadow = true;
     scene.add(object);
     P1 = object
   });
 
   loader.load(model[2], function (object) {
+    object.castShadow = true;
+    object.recieveShadow = true
     scene.add(object);
     P2 = object
   });
 
   loader.load(model[3], function (object) {
+    object.castShadow = true;
+    object.recieveShadow = true
     scene.add(object);
     P3 = object
   });
 
   loader.load(model[4], function (object) {
+    object.castShadow = true;
+    object.recieveShadow = true
     scene.add(object)
     P4 = object
   });
 
   loader.load(model[5], function (object) {
+    object.castShadow = true;
+    object.recieveShadow = true
     scene.add(object);
     P5 = object
   });
@@ -142,6 +154,7 @@ function init() {
   // create the renderer and add it to the html
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  //renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.body.appendChild(renderer.domElement);
 
@@ -237,8 +250,9 @@ document.getElementById("pause").addEventListener("click", function() {
 
 function animate() {
         requestAnimationFrame(animate);
+        Sun.rotation.z += 0.02/2*speed
         P1.rotation.z += 0.015/2*speed
-        P2.rotation.z += 0.02/2*speed
+        P2.rotation.z += 0.025/2*speed
         P3.rotation.z += 0.01*speed
         Moon.rotation.x += 0.01*speed
         P4.rotation.z += 0.03/2*speed
